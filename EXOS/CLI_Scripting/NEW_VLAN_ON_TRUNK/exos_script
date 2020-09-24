@@ -1,0 +1,22 @@
+enable cli scripting
+disable clipaging
+set var cli.out 0
+set var vlan $CLI.ARGV1
+show var CLI.ARGV1
+show var vlan
+sh edp ports all | i 00:00
+set var ss $TCL(split ${cli.out} "\n")
+set var v1 $TCL(lindex $ss 0)
+set var v2 $TCL(lindex $ss 1)
+set var v3 $TCL(lindex $ss 2)
+set var z1 $TCL(regexp -inline {^.{0,5}} $v1)
+set var V1 $TCL(lindex $z1 0)
+set var z2 $TCL(regexp -inline {^.{0,5}} $v2)
+set var V2 $TCL(lindex $z2 0)
+set var z3 $TCL(regexp -inline {^.{0,5}} $v3)
+set var V3 $TCL(lindex $z3 0)
+configure vlan $vlan add port $V1 tag
+configure vlan $vlan add port $V2 tag
+configure vlan $vlan add port $V3 tag
+save
+y
