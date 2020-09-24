@@ -1,0 +1,48 @@
+# @METADATASTART
+#@DetailDescriptionStart
+#############################################################################
+# Extreme Networks(R) CLI Scripting Library
+# Note:  This script is an example and has undergone limited testing.  Please modify and test for your own environment.
+# Script        : VLAN add to trunk
+# Revision      : 1.1
+# Last Updated  : 09 2020
+#
+# Purpose:  Purpose of this script is to add VLAN to trunk ports [max 3 ports detected as trunk via edp 
+#
+#
+#####################################################################
+#@DetailDescriptionEnd
+
+# @ScriptDescription "Purpose of this script is to add VLAN to trunk ports [max 3 ports detected as trunk via edp"	
+
+# @SectionStart (description = Selected VLAN "))
+# @VariableFieldLabel ( description = "Abort on error?",
+#	type	      = String,
+#   scope       = global,
+#   required    = yes, 
+#   validValues=[yes,no])
+set var abort_when_error no
+
+# @VariableFieldLabel ( description = "Vlan name - Vlan must exist on switch!",
+#	type	      = VLAN_NAME,
+#   scope       = global,
+#   required    = yes, 
+#   readonly     = no
+#)
+set var vlan Give_me_name_here
+
+# @SectionEnd
+# @MetaDataEnd
+################################################################################
+################################################################################
+#    				CONFIGURATION DETAIL
+################################################################################
+################################################################################
+
+################################################################################
+# CLI MODE
+###############################################################################
+
+tftp get 172.17.200.100 vr VR-Default newvlan.xsf newvlan.xsf
+sleep 5
+load script newvlan.xsf $vlan
